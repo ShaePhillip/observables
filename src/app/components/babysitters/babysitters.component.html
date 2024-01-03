@@ -1,0 +1,65 @@
+
+<h4> Welcome to our babysitter directory. </h4>
+<br>
+<h5>Here is a list of our currently available sitters: </h5>
+
+<table class="table"> 
+  <th>
+      <tr>
+        <td>Name of Sitter </td>
+        <td>Cellphone Number of Sitter</td>
+      </tr>
+  </th>
+
+  
+  <tr *ngFor = "let sitter of availableSitters; index as i" [class.bg-dark]="sitter.blackListed">
+    <td>{{sitter.name}}</td>
+    <td>{{sitter.cell}}</td>
+    <td><button type = button class="btn btn-primary btn-rounded" (click)="hireClicked(sitter)" *ngIf="!sitter.blackListed">Hire</button></td>
+    <td><button type="button" class="btn btn-dark" (click)="blacklistClicked(sitter)"  *ngIf="!sitter.blackListed">Blacklist</button></td>
+    <td><button *ngIf="sitter.blackListed" (click)="cancelClicked(sitter)"> Cancel </button></td>
+    <td><button (click)="removeClicked(i)">Remove from table</button></td>
+
+  </tr>
+</table>
+
+<br>
+<br>
+<div *ngIf="hiredSitter" class="row">
+  <div class="col-1"></div>
+  <div class="col-10">
+    <div class="card" style="width: 18rem;">
+      <img class="card-img-top" src="../assets/sitter.jpg" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Hired Babysitter</h5>
+        <p class="card-text">This is your awesome dependable sitter for tonight.</p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">{{hiredSitter.name}}</li>
+        <li class="list-group-item">{{hiredSitter.cell}}</li>
+      </ul>
+      <div class="card-body">
+        <a class="btn text-white" style="background-color: #3b5998;" href="#!" role="button" mdbRipple (click)="unhireClicked()">
+          X
+        </a>
+      </div>
+    </div>  
+  </div>
+
+</div>
+
+
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Name</label>
+    <div class="col-sm-3">
+      <input type="text" class="form-control" [(ngModel)]="newSitterName">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Cellphone Number</label>
+    <div class="col-sm-3">
+      <input type="text" class="form-control" [(ngModel)]="newSitterNumber">
+    </div>
+  </div>
+
+<button class="btn btn-success" (click)="addClicked()">ADD</button>
